@@ -413,7 +413,7 @@ const Dashboard = () => {
         </Typography>
         <Typography variant="h5">
           <Box fontWeight="fontWeightBold">
-            Welcome, {data.firstname}
+            {/* Welcome, {data.firstname} */}
           </Box>
         </Typography>
         <Typography variant="subtitle1" color="textSecondary" gutterBottom>
