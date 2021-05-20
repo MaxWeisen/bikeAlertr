@@ -1,18 +1,20 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 // const axios = require('axios');
-
+const bodyparser = require('body-parser');
 const app = express();
 const path = require('path');
+
 
 const apiRouter = require('./routes/api');
 
 // ------------------------------------------------------------------
 // Parse cookies & save to req.cookies
 app.use(cookieParser());
+app.use(express.json());
 // Parse urlencoded body content & save to req.body
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // ------------------------------------------------------------------
 
 // ------------------------ STATIC FILES ----------------------------
@@ -29,7 +31,7 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 // *** LOGIN PAGE HANDLING ***************
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../src/index.html'));
-})
+});
 // ***************************************
 // *** SIGNUP PAGE HANDLING **************
 app.get('/signup', (req, res) => {
@@ -43,22 +45,11 @@ app.get('/signup', (req, res) => {
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../src/index.html'));
 });
-
-app.get('/dashboard', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../src/index.html'))
-});
-
-app.get('/signup', (req: Request, res: Response) => {
-  res.sendFile(path.resolve(__dirname, '../src/index.html'))
-});
 // -------------------------------------------------------------------
 
 // -------------- Route Handling for requests to /api ----------------
 app.use('/api', apiRouter);
-
 // -------------------------------------------------------------------
-
-// setInterval()
 
 // ---------------------- 404 HANDLING -------------------------------
  app.use('*', (req, res) => {
